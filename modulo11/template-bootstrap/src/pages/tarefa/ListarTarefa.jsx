@@ -1,165 +1,108 @@
 import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card'
+import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
-
 import CriarTarefa from './CriarTarefa';
-//import EditarTarefa from './EditarTarefa';
 
-//A função abaixo é usada para criar o array contendo os dados iniciais da listagem de tarefas.
-function createData(
-  idTarefa: number,
-  tituloTarefa: string,
-  descricaoTarefa: string,
-  inicioTarefa: string,
-  fimTarefa: string,
-  statusTarefa: string,
-  recursoTarefa: string,
-) {
+// Função para criar dados iniciais
+function createData(idTarefa, tituloTarefa, descricaoTarefa, inicioTarefa, fimTarefa, statusTarefa, recursoTarefa) {
   return { idTarefa, tituloTarefa, descricaoTarefa, inicioTarefa, fimTarefa, statusTarefa, recursoTarefa };
 }
 
-//Definição do array contendo os dados iniciais da listagem de tarefas
+// Dados iniciais
 const initialRows = [
-  createData(1, 'Tarefa 1', 'Descrição da Tarefa 1', '2022-01-01', '2022-01-02', 'Concluída', 'Recurso 1'),
-  createData(2, 'Tarefa 2', 'Descrição da Tarefa 2', '2022-01-03', '2022-01-04', 'Em Andamento', 'Recurso 2'),
-  createData(3, 'Tarefa 3', 'Descrição da Tarefa 3', '2022-01-04', '2022-01-05', 'Em Andamento', 'Recurso 3'),
-  createData(4, 'Tarefa 4', 'Descrição da Tarefa 4', '2022-01-05', '2022-01-06', 'Em Andamento', 'Recurso 4'),
-  createData(5, 'Tarefa 5', 'Descrição da Tarefa 5', '2022-01-06', '2022-01-07', 'Em Andamento', 'Recurso 5'),
-  createData(6, 'Tarefa 6', 'Descrição da Tarefa 6', '2022-01-07', '2022-01-08', 'Aguardando', 'Recurso 6'),
+  createData(1, 'Título 1', 'Descrição do Estudo 1', '2024-11-21', '2024-11-22', 'Concluído', 'Livros'),
+  createData(2, 'Título 2', 'Descrição do Estudo 2', '2024-11-22', '2024-11-23', 'Em Andamento', 'Sites'),
+  createData(3, 'Título 3', 'Descrição do Estudo 3', '2024-11-23', '2024-11-24', 'Em Andamento', 'Vídeos'),
+  createData(4, 'Título 4', 'Descrição do Estudo 4', '2024-11-24', '2024-11-25', 'Em Andamento', 'Livros'),
+  createData(5, 'Título 5', 'Descrição do Estudo 5', '2024-11-25', '2024-11-26', 'Em Andamento', 'Sites'),
+  createData(6, 'Título 6', 'Descrição do Estudo 6', '2024-11-26', '2024-11-27', 'Pendente', 'Vídeos'),
 ];
 
-//Componente ListarTarefa
+// Componente ListarTarefa
 const ListarTarefa = () => {
   const [open, setOpen] = useState(false);
-  const [openEditar, setOpenEditar] = useState(false);
   const [tarefas, setTarefas] = useState([]);
-  const [tarefa, setTarefa] = useState();
-  const [idTarefaSelecionada, setIdTarefaSelecionada] = useState([]);
+  
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleOpenEditar = () => setOpenEditar(true);
-  const handleCloseEditar = () => setOpenEditar(false);
 
-  //O array definido acima é setado como conteúdo do state Tarefas na renderização inicial do componente.
   useEffect(() => {
     setTarefas(initialRows);
-  },[]);
-
-  const handleEditar = (id) => {
-    setIdTarefaSelecionada(id);
-
-    //Objeto local para armazenamento da tarefa filtrada de acordo com a seleção do usuário
-    let tarefaParaEditar = tarefas.filter(obj => {
-      return obj.idTarefa === id;
-    })[0];
-
-    //Atribuição do Objeto local, setado acima, ao state Tarefa
-    setTarefa(tarefaParaEditar);
-
-    //Seta como true o state responsável pela exibição do Model de Editar Tarefa
-    setOpenEditar(true)
-  };
+  }, []);
 
   const handleDeletar = (id) => {
-    setTarefas(current =>
-      current.filter(tarefa => {
-        return tarefa.idTarefa !== id;
-      }),
-    );
+    setTarefas(current => current.filter(tarefa => tarefa.idTarefa !== id));
   };
 
-    return(
+  return (
     <>
-    <Card>
-      <Card.Header>
-      <Card.Title>
-          Tarefas
-        </Card.Title> 
-        <Card.Subtitle>
-          Listagem de Tarefas
-        </Card.Subtitle> 
-      </Card.Header>
-      <Card.Body>
-        <Card.Text>
+      <Card>
+        <Card.Header>
+          <Card.Title>Estudos</Card.Title>
+          <Card.Subtitle>Lista de Tarefas</Card.Subtitle>
+        </Card.Header>
+        <Card.Body>
+          <Card.Text>
             <Table striped bordered hover responsive>
-                <thead>
-                  <tr>
-                      <th>#</th>
-                      <th>Título</th>
-                      <th align="right">Descrição</th>
-                      <th align="right">Data de Início</th>
-                      <th align="right">Data de Finalização</th>
-                      <th align="right">Status</th>
-                      <th align="right">Recurso</th>
-                      <th align="left"></th>
-                      <th align="left"></th>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Título do Estudo</th>
+                  <th>Descrição</th>
+                  <th>Data de Início</th>
+                  <th>Data de Conclusão</th>
+                  <th>Status</th>
+                  <th>Recursos</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tarefas.map((row) => (
+                  <tr key={row.idTarefa}>
+                    <td>{row.idTarefa}</td>
+                    <td>{row.tituloTarefa}</td>
+                    <td>{row.descricaoTarefa}</td>
+                    <td>{row.inicioTarefa}</td>
+                    <td>{row.fimTarefa}</td>
+                    <td>{row.statusTarefa}</td>
+                    <td>{row.recursoTarefa}</td>
+                    <td>
+                      <Button variant="info" onClick={() => console.log('Editar', row.idTarefa)}>
+                        <AiFillEdit />
+                      </Button>
+                      <Button variant="danger" onClick={() => handleDeletar(row.idTarefa)}>
+                        <AiFillDelete />
+                      </Button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                {tarefas.map((row, indice) => (
-                    <tr
-                    key={indice}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <td component="th" scope="row">
-                          {row.idTarefa}
-                      </td>
-                      <td component="th" scope="row">
-                          {row.tituloTarefa}
-                      </td>
-                      <td align="left">{row.descricaoTarefa}</td>
-                      <td align="left">{row.inicioTarefa}</td>
-                      <td align="left">{row.fimTarefa}</td>
-                      <td align="left">{row.statusTarefa}</td>
-                      <td align="left">{row.recursoTarefa}</td>
-                      <td align="center">
-                        <Button variant="contained" color="success" onClick={() => handleEditar(row.idTarefa)}><AiFillEdit/></Button>            
-                      </td>
-                      <td align="center">
-                        <Button variant="contained" color="error" onClick={() => handleDeletar(row.idTarefa)}><AiFillDelete/></Button>            
-                      </td>
-                    </tr>
                 ))}
-                </tbody>
+              </tbody>
             </Table>
-        </Card.Text>
-        <Row>
-          <Col md="auto">
-            <Button variant="success" onClick={handleOpen}>Criar Tarefa</Button>  
-          </Col>
-          <Col md={1}>
-            <Button variant="secondary" className="ml-30">Cancelar</Button>
-          </Col>
-        </Row>
-      </Card.Body>
-    </Card>
-    <div>
-      <Modal
-        size="lg"
-        show={open} onHide={handleClose}      >
+          </Card.Text>
+          <Row>
+            <Col md="auto">
+              <Button variant="primary" onClick={handleOpen}>Criar Tarefa</Button>
+            </Col>
+          </Row>
+        </Card.Body>
+      </Card>
+
+      {/* Modal para Criar Tarefa */}
+      <Modal size="lg" show={open} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Criar Tarefa</Modal.Title>
+        </Modal.Header>
         <Modal.Body>
           <CriarTarefa handleClose={handleClose} tarefas={tarefas} setTarefas={setTarefas} />
         </Modal.Body>
-      </Modal>  
-    </div>
-    <div>
-      {/*
-      <Modal
-        show={openEditar} onHide={handleCloseEditar}
-      >
-        <Modal.Body>
-          <EditarTarefa handleCloseEditar={handleCloseEditar} idTarefaSelecionada={idTarefaSelecionada} tarefas={tarefas} tarefa={tarefa} setTarefas={setTarefas} />
-        </Modal.Body>
-      </Modal>  
-      */}
-    </div>
-  </>    
- );
+      </Modal>
+    </>
+  );
 };
- 
+
 export default ListarTarefa;

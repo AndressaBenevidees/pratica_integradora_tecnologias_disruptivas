@@ -5,9 +5,31 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f5f5; /* Cor de fundo suave para a aplicação */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Estilos adicionais para melhorar a legibilidade */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  color: #333; /* Cor dos títulos */
+}
+
+p {
+  line-height: 1.6; /* Aumenta o espaçamento entre linhas para melhor legibilidade */
+  color: #555; /* Cor do texto dos parágrafos */
+}
+
+/* Estilo para links */
+a {
+  color: #61dafb; /* Cor dos links */
+  text-decoration: none; /* Remove o sublinhado */
+}
+
+a:hover {
+  text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
 }

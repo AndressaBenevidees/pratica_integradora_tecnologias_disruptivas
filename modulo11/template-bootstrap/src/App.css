@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #282c34; /* Cor de fundo da header */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -22,17 +22,42 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding: 20px; /* Adicionando espaçamento */
 }
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Estilos para o Navbar */
+.navbar {
+  margin-bottom: 20px; /* Espaçamento abaixo do Navbar */
+}
+
+.nav-link {
+  color: white !important; /* Garantindo que os links sejam brancos */
+}
+
+.nav-link:hover {
+  color: #61dafb !important; /* Cor ao passar o mouse */
+}
+
+/* Estilos para o Card */
+.card {
+  margin: 20px; /* Margem ao redor do card */
+}
+
+.card-header {
+  background-color: #17a2b8; /* Cor do cabeçalho do card */
+  color: white; /* Cor do texto do cabeçalho */
+}
+
+.card-body {
+  background-color: #f8f9fa; /* Cor de fundo do corpo do card */
+  color: #212529; /* Cor do texto do corpo */
+}
+
+/* Estilos para botões */
+.btn {
+  margin: 5px; /* Margem ao redor dos botões */
 }
